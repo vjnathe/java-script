@@ -1,0 +1,239 @@
+<html>
+<head>
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	border: solid #000000;
+}
+span{color:red;}
+</style>
+<style type="text/css">
+input {
+	font-size: 16px;
+	font-family: Arial;
+	cursor: text;
+	width: 150px;
+	}
+</style>
+</head>
+<body onLoad="document.registration.userid.focus();" bgcolor="#89CFE7">
+<h1 align="center">Registration Form</h1>
+<form name='registration' method="POST" onSubmit="return validateForm();">
+<table border="1" cellpadding="8" cellspacing="3" width="500" align="center">
+<tr>
+<td><label>Name:<span>*</span></label></td>
+<td><input type="text" id="username" name="username" size="50" /></td>
+</tr>
+<tr>
+<td><label>Password:<span>*</span></label></td>
+<td><input type="password" id="passid" name="passid" size="12" /></td>
+</tr>
+<tr>
+<td><label>Address:<span>*</span></label></td>
+<td><input type="text" id="address" name="address" size="50" /></td>
+</tr>
+<td><label>Country:<span>*</span></label></td>
+<td><select id="country" name="country">
+<option selected="" value="Default">select country</option>
+<option value="AF">Australia</option>
+<option value="AL">Canada</option>
+<option value="DZ">India</option>
+<option value="AS">Russia</option>
+<option value="AD">USA</option>
+</select></td>
+</tr>
+ <tr>
+<td><label>Mobile Number:<span>*</span></label></td>
+<td><input type="text" id="mobile" name="mobile" /></td>
+</tr>
+<td><label>Email:<span>*</span></label></td>
+<td><input type="text" id="email" name="email" size="50" /></td>
+</tr>
+<tr>
+<td><label>Sex:<span>*</span></label></td>
+</tr>
+<tr>
+<td><input type="radio" id="male" name="male" value="Male" />Male</td>
+<td><input type="radio" id="female" name="female" value="Female" />Female</td>
+</tr>
+<tr>
+<td align="center"><input type="submit" name="submit" value="Submit" /></td>
+</tr>
+</table>
+</form>
+</body>
+</html>
+
+
+<script>
+
+function validateForm()
+{
+
+  var uname = document.getElementById("username");
+  var passid = document.getElementById("passid");
+  var uadd = document.getElementById("address");
+  var ucountry = document.getElementById("country");
+  var mobile = document.getElementById("mobile");
+  var uemail = document.getElementById("email");
+  var umsex = document.getElementById("male");
+  var ufsex = document.getElementById("female");
+
+if(validateName(uname))
+{
+   if(validatePassword(passid,8,15))
+  {
+     if(alphanumeric(uadd))
+    { 
+        if(countryselect(ucountry))   
+       {
+           if(validateMobile(mobile,10))
+          {
+             if(ValidateEmail(uemail))
+            {
+                 if(validsex(umsex,ufsex))
+                {
+                      alert("Registration Sucessfull !!!");
+                      window.locaion.reload();
+                 } 
+             } 
+         }
+      } 
+   }
+ }
+}
+
+return false;
+
+}
+
+function validateMobile(mobile,len)
+{
+   var letters = /^[0-9]+$/;
+   if(mobile.value.match(letters) && mobile.value.length >=10)
+   {
+      return true;
+   }
+   else
+   {
+      if(mobile.value.length==0)
+      alert('Mobile Number Required');
+      else
+      alert('Mobile Number must have numbers only and minimum '+ len+' digits');
+      mobile.focus();
+      return false;
+   }
+}
+function validatePassword(passid,min,max)
+{
+   var passid_len = passid.value.length;
+   if (passid_len == 0 ||passid_len >= max || passid_len < min)
+   {
+      alert("Password should not be empty / length be between "+min+" to "+max); 
+      passid.focus();
+      return false;
+   }
+   if(!/[A-Z]/.test(passid.value))
+   { alert("Password should Contain atleast one Capital"); 
+      passid.focus();
+      return false;
+   }
+   if(!/[0-9]/.test(passid.value))
+   {
+      alert("Password should Contain atleast one Number"); 
+      passid.focus();
+      return false;
+   }
+   if(!(/[\$\-\_\@]/.test(passid.value)))
+   {
+      alert("Password should Contain atleast one Special Character(_ - @ $)"); 
+      passid.focus();
+      return false;
+   }
+ return true;
+}
+
+function validateName(uname)
+{ 
+    var letters = /^[A-Za-z]+$/;
+    if(uname.value.match(letters)) 
+   {
+       return true;
+    }
+    else
+   { 
+        if(uname.value=="")
+        alert('Name Required');
+        else
+        alert('Username must have alphabet characters only');
+        
+        uname.focus();
+        return false;
+    }
+}
+function alphanumeric(uadd)
+{ 
+  var letters = /^[0-9a-zA-Z]+$/;
+  if(uadd.value.match(letters))
+  {
+     return true;
+  }
+  else
+  {
+     if(uadd.value.length==0)
+     alert('User address Required');
+     else
+     alert('User address must have alphanumeric characters only');
+     uadd.focus();
+     return false;
+  }
+}
+function countryselect(ucountry)
+{
+  if(ucountry.value == "Default")
+  {
+    alert('Select your country from the list');
+    ucountry.focus();
+    return false;
+  }
+  else 
+  {
+     return true;
+  }
+}
+
+function ValidateEmail(uemail)
+{
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if(uemail.value.match(mailformat))
+  {
+     return true;
+  }
+  else
+  {
+     if(uemail.value.length==0)
+      alert("Email ID Required");
+      else
+      alert("You have entered an invalid email address!");
+      uemail.focus();
+      return false;
+  }
+} 
+
+function validsex(umsex,ufsex)
+{
+
+  if(umsex.checked || ufsex.checked) 
+  {
+    return true;
+  }
+  else 
+  {
+    alert('Select one gender option atleast');
+    umsex.focus();
+    return false;
+  }
+}
+
+</script>
