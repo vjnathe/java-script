@@ -1,0 +1,6 @@
+<div id="context_menu_new" style="width:150px;border:1px solid black;background-color:#EEEEEE;visibility:hidden;position:absolute;line-height:30px; padding-left: 10px">
+<a href="http://www.google.co.in">Google</a><br />
+<a href="http://www.facebook.com">Facebook</a><br />
+<a href="http://www.gmail.com">Gmail</a><br />
+<a href="http://www.youtube.com">Youtube</a><br />
+</div>
