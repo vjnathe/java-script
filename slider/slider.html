@@ -4,7 +4,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
 </script>
 <style>
-td
+#div1 td div
 {
   background-image:url("/slider/img/back.jpeg");
   height:100px;
@@ -21,31 +21,34 @@ $(document).ready(function(){
                $('#div1').append('<tr>');
                for(var i=0;i<result.length;i++)
                {
-                  var img="<td><img  id='"+i+"' src='"+result[i].src+"' height=100px width=100px></td>";  
+                  var img="<td><div id='"+i+"'><img  id='id"+i+"' src='"+result[i].src+"' height=100px width=100px></div></td>";  
                   $('#div1').append(img);
                   $('#div1 #'+i).bind('click', function() {
                           var currentId = $(this).attr('id');
                           var viewImg="<img  id='slide' src='"+result[currentId].src+"' height=500 width=300>";
-                          slider(viewImg);
+                          slider(viewImg,currentId);
                    });
                   
                }
                $('#div1').append('</tr>');
                $('#div1').append('</table>');
+               $('img').hide();
                $('#viewer').html("<img  id='slide' src='"+result[0].src+"' height=500 width=300>");
+               $('#id0').show();
               } 
            });
    
      
 });
- function slider(url)
+ function slider(url,thumb)
 {
+     $('img').hide();
+     $('#id'+thumb).show();
      $('#viewer').slideUp('slow');
      $('#viewer').html(url);
+     $(this).innerHTML=url;
      $('#viewer').hide();
-     $('#viewer').slideDown('slow');
-     
-     
+     $('#viewer').slideDown('slow'); 
 }   
 </script>
 </head>
