@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+    $.ajax({
+             url:'img.json',
+             method:'GET',
+              success:function(result){
+              result=result.concat(result);
+              var array=new Array();
+              for (var i = 0; i < result.length; i++)
+              array[i]=result[i].src;
+                    
+               array.sort(function() { return 0.7 - Math.random() });
+               
+               $('#div1').append('<table>');
+               $('#div1').append('<tr>');
+               for(var i=0;i<array.length;i++)
+               {
+                  var img="<td><img  id='"+i+"' src='"+array[i]+"' height=100 width=100></td>";
+                  $('#div1 #'+i).hide();  
+                  $('#div1').append(img);
+                  
+                  $('#div1 #'+i).bind('click', function() {
+                       fliper(this);
+                   });
+                  if(i==((result.length/2)-1))
+                  $('#div1').append('</tr><tr>');
+               }
+               $('#div1').append('</tr>');
+               $('#div1').append('</table>');
+
+              } 
+           });
+   
+     
+});
+ function fliper(url)
+{
+     
+     $(url).show("fade",500);
+     $(url).delay(5500).hide("slide",{direction:'left'},500);
+}   
+</script>
+</head>
+<body>
+
+<div id="div1"></div>
+
+</body>
+</html>
+
